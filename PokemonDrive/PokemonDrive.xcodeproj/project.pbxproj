@@ -6,14 +6,63 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CD41F8072E8C4CDA0012DF23 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD41F8062E8C4CD90012DF23 /* UniformTypeIdentifiers.framework */; };
+		CD41F8132E8C4CDA0012DF23 /* PokemonFileProvider.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CD41F8042E8C4CD90012DF23 /* PokemonFileProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CD41F8112E8C4CDA0012DF23 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD41F7E72E8C4C330012DF23 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD41F8032E8C4CD90012DF23;
+			remoteInfo = PokemonFileProvider;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CD41F8182E8C4CDA0012DF23 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CD41F8132E8C4CDA0012DF23 /* PokemonFileProvider.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		CD41F7EF2E8C4C330012DF23 /* PokemonDrive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokemonDrive.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD41F8042E8C4CD90012DF23 /* PokemonFileProvider.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PokemonFileProvider.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD41F8062E8C4CD90012DF23 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CD41F8142E8C4CDA0012DF23 /* Exceptions for "PokemonFileProvider" folder in "PokemonFileProvider" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CD41F8032E8C4CD90012DF23 /* PokemonFileProvider */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		CD41F7F12E8C4C330012DF23 /* PokemonDrive */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = PokemonDrive;
+			sourceTree = "<group>";
+		};
+		CD41F8082E8C4CDA0012DF23 /* PokemonFileProvider */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CD41F8142E8C4CDA0012DF23 /* Exceptions for "PokemonFileProvider" folder in "PokemonFileProvider" target */,
+			);
+			path = PokemonFileProvider;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -26,6 +75,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CD41F8012E8C4CD90012DF23 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD41F8072E8C4CDA0012DF23 /* UniformTypeIdentifiers.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -33,6 +90,8 @@
 			isa = PBXGroup;
 			children = (
 				CD41F7F12E8C4C330012DF23 /* PokemonDrive */,
+				CD41F8082E8C4CDA0012DF23 /* PokemonFileProvider */,
+				CD41F8052E8C4CD90012DF23 /* Frameworks */,
 				CD41F7F02E8C4C330012DF23 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,8 +100,17 @@
 			isa = PBXGroup;
 			children = (
 				CD41F7EF2E8C4C330012DF23 /* PokemonDrive.app */,
+				CD41F8042E8C4CD90012DF23 /* PokemonFileProvider.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CD41F8052E8C4CD90012DF23 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CD41F8062E8C4CD90012DF23 /* UniformTypeIdentifiers.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -55,10 +123,12 @@
 				CD41F7EB2E8C4C330012DF23 /* Sources */,
 				CD41F7EC2E8C4C330012DF23 /* Frameworks */,
 				CD41F7ED2E8C4C330012DF23 /* Resources */,
+				CD41F8182E8C4CDA0012DF23 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				CD41F8122E8C4CDA0012DF23 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				CD41F7F12E8C4C330012DF23 /* PokemonDrive */,
@@ -69,6 +139,28 @@
 			productName = PokemonDrive;
 			productReference = CD41F7EF2E8C4C330012DF23 /* PokemonDrive.app */;
 			productType = "com.apple.product-type.application";
+		};
+		CD41F8032E8C4CD90012DF23 /* PokemonFileProvider */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD41F8152E8C4CDA0012DF23 /* Build configuration list for PBXNativeTarget "PokemonFileProvider" */;
+			buildPhases = (
+				CD41F8002E8C4CD90012DF23 /* Sources */,
+				CD41F8012E8C4CD90012DF23 /* Frameworks */,
+				CD41F8022E8C4CD90012DF23 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				CD41F8082E8C4CDA0012DF23 /* PokemonFileProvider */,
+			);
+			name = PokemonFileProvider;
+			packageProductDependencies = (
+			);
+			productName = PokemonFileProvider;
+			productReference = CD41F8042E8C4CD90012DF23 /* PokemonFileProvider.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -81,6 +173,9 @@
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					CD41F7EE2E8C4C330012DF23 = {
+						CreatedOnToolsVersion = 26.0;
+					};
+					CD41F8032E8C4CD90012DF23 = {
 						CreatedOnToolsVersion = 26.0;
 					};
 				};
@@ -100,12 +195,20 @@
 			projectRoot = "";
 			targets = (
 				CD41F7EE2E8C4C330012DF23 /* PokemonDrive */,
+				CD41F8032E8C4CD90012DF23 /* PokemonFileProvider */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		CD41F7ED2E8C4C330012DF23 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD41F8022E8C4CD90012DF23 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +225,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CD41F8002E8C4CD90012DF23 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CD41F8122E8C4CDA0012DF23 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD41F8032E8C4CD90012DF23 /* PokemonFileProvider */;
+			targetProxy = CD41F8112E8C4CDA0012DF23 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		CD41F7FB2E8C4C350012DF23 /* Debug */ = {
@@ -311,6 +429,66 @@
 			};
 			name = Release;
 		};
+		CD41F8162E8C4CDA0012DF23 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PokemonFileProvider/PokemonFileProvider.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HMRJBWNJY3;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PokemonFileProvider/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PokemonFileProvider;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = andres.PokemonDrive.PokemonFileProvider;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		CD41F8172E8C4CDA0012DF23 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PokemonFileProvider/PokemonFileProvider.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HMRJBWNJY3;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PokemonFileProvider/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PokemonFileProvider;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = andres.PokemonDrive.PokemonFileProvider;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -328,6 +506,15 @@
 			buildConfigurations = (
 				CD41F7FE2E8C4C350012DF23 /* Debug */,
 				CD41F7FF2E8C4C350012DF23 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD41F8152E8C4CDA0012DF23 /* Build configuration list for PBXNativeTarget "PokemonFileProvider" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD41F8162E8C4CDA0012DF23 /* Debug */,
+				CD41F8172E8C4CDA0012DF23 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
