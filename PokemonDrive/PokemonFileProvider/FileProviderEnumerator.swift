@@ -6,11 +6,12 @@
 //
 
 import FileProvider
+import Foundation
 
 class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
     
     private let enumeratedItemIdentifier: NSFileProviderItemIdentifier
-    private let anchor = NSFileProviderSyncAnchor("an anchor".data(using: .utf8)!)
+    private let anchor = NSFileProviderSyncAnchor("anchor-1".data(using: .utf8)!)
     
     init(enumeratedItemIdentifier: NSFileProviderItemIdentifier) {
         self.enumeratedItemIdentifier = enumeratedItemIdentifier
@@ -22,19 +23,53 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
     }
 
     func enumerateItems(for observer: NSFileProviderEnumerationObserver, startingAt page: NSFileProviderPage) {
-        /* TODO:
-         - inspect the page to determine whether this is an initial or a follow-up request
-         
-         If this is an enumerator for a directory, the root container or all directories:
-         - perform a server request to fetch directory contents
-         If this is an enumerator for the active set:
-         - perform a server request to update your local database
-         - fetch the active set from your local database
-         
-         - inform the observer about the items returned by the server (possibly multiple times)
-         - inform the observer that you are finished with this page
-         */
-        observer.didEnumerate([FileProviderItem(identifier: NSFileProviderItemIdentifier("a file"))])
+        if enumeratedItemIdentifier == .rootContainer {
+            let folderItem = FileProviderItem(
+                identifier: NSFileProviderItemIdentifier("folder:pokemon"),
+                parent: .rootContainer,
+                filename: "Pokémon",
+                isFolder: true
+            )
+            observer.didEnumerate([folderItem])
+            observer.finishEnumerating(upTo: nil)
+            return
+        }
+
+        if enumeratedItemIdentifier.rawValue == "folder:pokemon" {
+            PokemonAPI.shared.fetchPokemonList(limit: 151) { result in
+                switch result {
+                case .success(let names):
+                    let items: [FileProviderItem] = names.map { name in
+                        let filename = "\(name).txt"
+                        return FileProviderItem(
+                            identifier: NSFileProviderItemIdentifier("file:\(filename)"),
+                            parent: NSFileProviderItemIdentifier("folder:pokemon"),
+                            filename: filename,
+                            isFolder: false
+                        )
+                    }
+                    observer.didEnumerate(items)
+                    observer.finishEnumerating(upTo: nil)
+                case .failure:
+                    let cached = PokemonAPI.shared.cachedPokemonNames()
+                    if cached.isEmpty == false {
+                        let items: [FileProviderItem] = cached.map { name in
+                            let filename = "\(name).txt"
+                            return FileProviderItem(
+                                identifier: NSFileProviderItemIdentifier("file:\(filename)"),
+                                parent: NSFileProviderItemIdentifier("folder:pokemon"),
+                                filename: filename,
+                                isFolder: false
+                            )
+                        }
+                        observer.didEnumerate(items)
+                    }
+                    observer.finishEnumerating(upTo: nil)
+                }
+            }
+            return
+        }
+
         observer.finishEnumerating(upTo: nil)
     }
     

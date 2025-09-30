@@ -24,9 +24,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 button.image = NSImage(systemSymbolName: "bolt.circle", accessibilityDescription: "Pokémon Drive")
             }
             let menu = NSMenu()
-            menu.addItem(NSMenuItem(title: "Conectar", action: #selector(connectDomain), keyEquivalent: "c"))
-            menu.addItem(NSMenuItem(title: "Desconectar", action: #selector(disconnectDomain), keyEquivalent: "d"))
-            menu.addItem(NSMenuItem(title: "Refrescar lista", action: #selector(refreshList), keyEquivalent: "r"))
+            menu.addItem(NSMenuItem(title: "🔌 Conectar", action: #selector(connectDomain), keyEquivalent: "c"))
+            menu.addItem(NSMenuItem(title: "✂️ Desconectar", action: #selector(disconnectDomain), keyEquivalent: "d"))
+            menu.addItem(NSMenuItem(title: "🔄 Refrescar lista", action: #selector(refreshList), keyEquivalent: "r"))
+            menu.addItem(.separator())
+            menu.addItem(NSMenuItem(title: "❌ Salir", action: #selector(quitApp), keyEquivalent: "q"))
             statusItem?.menu = menu
         }
         
@@ -65,6 +67,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     print("Lista refrescada")
                 }
             }
+        }
+        
+        @objc func quitApp() {
+            NSApp.terminate(nil)
         }
     
     func applicationWillTerminate(_ aNotification: Notification) {

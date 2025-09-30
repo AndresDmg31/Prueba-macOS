@@ -6,30 +6,77 @@
 //
 
 import FileProvider
+import UniformTypeIdentifiers
+import Foundation
 
 class FileProviderExtension: NSObject, NSFileProviderReplicatedExtension {
+    
+    let domainIdentifier: NSFileProviderDomainIdentifier
+
     required init(domain: NSFileProviderDomain) {
-        // TODO: The containing application must create a domain using `NSFileProviderManager.add(_:, completionHandler:)`. The system will then launch the application extension process, call `FileProviderExtension.init(domain:)` to instantiate the extension for that domain, and call methods on the instance.
+        self.domainIdentifier = domain.identifier
         super.init()
     }
     
     func invalidate() {
-        // TODO: cleanup any resources
     }
     
     func item(for identifier: NSFileProviderItemIdentifier, request: NSFileProviderRequest, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) -> Progress {
-        // resolve the given identifier to a record in the model
-        
-        // TODO: implement the actual lookup
+        if identifier == .rootContainer {
+            completionHandler(nil, nil)
+            return Progress()
+        }
 
-        completionHandler(FileProviderItem(identifier: identifier), nil)
+        if identifier.rawValue == "folder:pokemon" {
+            let item = FileProviderItem(
+                identifier: NSFileProviderItemIdentifier("folder:pokemon"),
+                parent: .rootContainer,
+                filename: "Pokémon",
+                isFolder: true
+            )
+            completionHandler(item, nil)
+            return Progress()
+        }
+
+        if identifier.rawValue.hasPrefix("file:") {
+            let name = String(identifier.rawValue.dropFirst("file:".count))
+            let item = FileProviderItem(
+                identifier: identifier,
+                parent: NSFileProviderItemIdentifier("folder:pokemon"),
+                filename: name,
+                isFolder: false
+            )
+            completionHandler(item, nil)
+            return Progress()
+        }
+
+        completionHandler(nil, NSError(domain: NSCocoaErrorDomain, code: NSFileNoSuchFileError, userInfo: nil))
         return Progress()
     }
     
     func fetchContents(for itemIdentifier: NSFileProviderItemIdentifier, version requestedVersion: NSFileProviderItemVersion?, request: NSFileProviderRequest, completionHandler: @escaping (URL?, NSFileProviderItem?, Error?) -> Void) -> Progress {
-        // TODO: implement fetching of the contents for the itemIdentifier at the specified version
-        
-        completionHandler(nil, nil, NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo:[:]))
+        guard itemIdentifier.rawValue.hasPrefix("file:") else {
+            completionHandler(nil, nil, nil)
+            return Progress()
+        }
+
+        let filename = String(itemIdentifier.rawValue.dropFirst("file:".count))
+        let item = FileProviderItem(
+            identifier: itemIdentifier,
+            parent: NSFileProviderItemIdentifier("folder:pokemon"),
+            filename: filename,
+            isFolder: false
+        )
+
+        let nameWithoutExt = filename.replacingOccurrences(of: ".txt", with: "")
+        let text = "name: \(nameWithoutExt)\n"
+        do {
+            let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString).appendingPathExtension("txt")
+            try text.data(using: .utf8)?.write(to: tempURL)
+            completionHandler(tempURL, item, nil)
+        } catch {
+            completionHandler(nil, nil, error)
+        }
         return Progress()
     }
     
@@ -48,7 +95,6 @@ class FileProviderExtension: NSObject, NSFileProviderReplicatedExtension {
     }
     
     func deleteItem(identifier: NSFileProviderItemIdentifier, baseVersion version: NSFileProviderItemVersion, options: NSFileProviderDeleteItemOptions = [], request: NSFileProviderRequest, completionHandler: @escaping (Error?) -> Void) -> Progress {
-        // TODO: an item was deleted on disk, process the item's deletion
         
         completionHandler(NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo:[:]))
         return Progress()

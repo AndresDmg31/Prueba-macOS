@@ -14,32 +14,30 @@ class FileProviderItem: NSObject, NSFileProviderItem {
     // TODO: implement the accessors to return the values from your extension's backing model
     
     private let identifier: NSFileProviderItemIdentifier
+    private let parentIdentifier: NSFileProviderItemIdentifier
+    private let isDirectory: Bool
+    private let name: String
     
-    init(identifier: NSFileProviderItemIdentifier) {
+    init(identifier: NSFileProviderItemIdentifier, parent: NSFileProviderItemIdentifier, filename: String, isFolder: Bool) {
         self.identifier = identifier
+        self.parentIdentifier = parent
+        self.name = filename
+        self.isDirectory = isFolder
     }
     
-    var itemIdentifier: NSFileProviderItemIdentifier {
-        return identifier
-    }
+    var itemIdentifier: NSFileProviderItemIdentifier { identifier }
     
-    var parentItemIdentifier: NSFileProviderItemIdentifier {
-        return .rootContainer
-    }
+    var parentItemIdentifier: NSFileProviderItemIdentifier { parentIdentifier }
     
     var capabilities: NSFileProviderItemCapabilities {
-        return [.allowsReading, .allowsWriting, .allowsRenaming, .allowsReparenting, .allowsTrashing, .allowsDeleting]
+        return [.allowsReading]
     }
     
     var itemVersion: NSFileProviderItemVersion {
-        NSFileProviderItemVersion(contentVersion: "a content version".data(using: .utf8)!, metadataVersion: "a metadata version".data(using: .utf8)!)
+        NSFileProviderItemVersion(contentVersion: Data("1".utf8), metadataVersion: Data("1".utf8))
     }
     
-    var filename: String {
-        return identifier.rawValue
-    }
+    var filename: String { name }
     
-    var contentType: UTType {
-        return identifier == NSFileProviderItemIdentifier.rootContainer ? .folder : .plainText
-    }
+    var contentType: UTType { isDirectory ? .folder : .plainText }
 }
