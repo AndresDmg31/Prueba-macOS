@@ -23,7 +23,13 @@ class FileProviderExtension: NSObject, NSFileProviderReplicatedExtension {
     
     func item(for identifier: NSFileProviderItemIdentifier, request: NSFileProviderRequest, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) -> Progress {
         if identifier == .rootContainer {
-            completionHandler(nil, nil)
+            let item = FileProviderItem(
+                identifier: .rootContainer,
+                parent: .rootContainer,
+                filename: "Pokémon",
+                isFolder: true
+            )
+            completionHandler(item, nil)  
             return Progress()
         }
 
